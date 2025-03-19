@@ -2,6 +2,7 @@
 
 /Chrome/*
 !/Chrome/.gitkeep
+!/workbooks/GiaDestda/.gitkeep
 *.env
 *__pycache__*
 *.log
