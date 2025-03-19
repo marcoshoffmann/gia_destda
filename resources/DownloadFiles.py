@@ -40,19 +40,8 @@ class DownloadFiles:
                     print(f'IE: {ie}')
                     self.filesmanager.clear_pdfs()
                     atualizacao = self.browsersefaz.ie_operations(inscEstadual=ie)
-                    # input(f'ATUALIZACAO: {atualizacao}')
                     status_arquivo = self.filesmanager.manager_pdfs()
-                    # input(f'STATUS ARQUIVO: {status_arquivo}')
                     self.mysqldb.atualizar_dados(query=atualizar_status.format(atualizacao['status'], atualizacao['status_erro'], status_arquivo, str(datetime.now())[:-7], int(self.timeconsult.actual_month), int(self.timeconsult.actual_year), ie))
         except Exception as error_x:
             print(f'ERROR_X: {error_x}')
-            # if str(error_x).__contains__('element click intercepted: Element <li id="tab_8" onclick="mostraAba(8)">...</li> is not clickable at'):
-            #     self.browsersefaz.fechou = False
-            #     self.browsersefaz.first_interaction = True
-            #     self.download_files(tipo=tipo)
-            # elif not str(error_x).__contains__('Message: invalid session id'):
-            #     self.browsersefaz.fechou = False
-            #     self.browsersefaz.first_interaction = True
-            #     self.download_files(tipo=tipo)
-        # sleep(6)
         return

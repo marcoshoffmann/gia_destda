@@ -11,7 +11,6 @@ class Pdf:
     def verify_pdf(self, file):
         cnpj, mes, ano, status_recebimento, status,  = None, None, None, '', False
         pdf_data = self.read_pdf(file_pdf=file)
-        # input(f'PDF DATA: {pdf_data}')
         if any('GIA ' in line for line in pdf_data):
             tipo = 'GIA'
             for line in pdf_data:
@@ -29,7 +28,6 @@ class Pdf:
         elif any('DeSTDA' in line for line in pdf_data):
             tipo = 'DESTDA'
             for line in pdf_data:
-                # input(f'LINE: |{line}|')
                 if line.__eq__('DeSTDA - ACEITA.'):
                     status_recebimento = 'ACEITA'
                     status = True

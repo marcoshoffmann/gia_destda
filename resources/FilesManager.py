@@ -1,4 +1,4 @@
-from os import getenv, listdir, path as _path, remove, rename
+from os import getenv, listdir, path as _path, remove
 from dotenv import load_dotenv
 load_dotenv()
 from resources.Pdf import Pdf
@@ -23,22 +23,15 @@ class FilesManager:
 
     def manager_pdfs(self) -> str:
         pdfs = self.list_all_pdfs()
-        # input(f'PDFS: {pdfs}')
         valid = None
         if len(pdfs).__gt__(0):
             for pdf in pdfs:
                 pdf_verification = self.pdf.verify_pdf(file=pdf)
-                # input(f'PDF VERIFICATION: {pdf_verification}')
                 cnpj = pdf_verification[0]
-                # input(f'CNPJ: {cnpj}')
                 mes = pdf_verification[1]
-                # input(f'MÊS: {mes}')
                 ano = pdf_verification[2]
-                # input(f'ANO: {ano}')
                 tipo = pdf_verification[3]
-                # input(f'TIPO: {tipo}')
                 recebimento = pdf_verification[4]
-                # input(f'RECEBIMENTO: {recebimento}')
                 id = self.mysqldb.ler_dados(query=consulta_id.format(cnpj))[0][0]
                 if pdf_verification[-1]:
                     print(pdf, f'{self.pathmanager.search_path(cnpj=cnpj, mes=mes, ano=ano)}\\GIA_DESTDA\\{id} - RECIBO {tipo} {mes}.{ano}.pdf')

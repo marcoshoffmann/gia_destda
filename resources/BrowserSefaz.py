@@ -43,7 +43,6 @@ class BrowserSefaz:
         self.fechou = False
         self.first_interaction = True
         self.navegador.get("chrome-extension://caokhkhhncahnamdelalpicnnelnjncn/popup_v3.html")
-        # input('GET URL')
         self.navegador.execute_script("""let teste0 = document.getElementsByClassName('toggler')[0];
                                                             if (teste0.disabled){
                                                                 teste0.click();
@@ -128,17 +127,13 @@ class BrowserSefaz:
             try:
                 self.navegador.find_element(By.ID, 'cboxClose').click()
                 self.fechou = True
-                # input(f'FECHARBOXXX: {self.fechou}')
                 logger.info("Fechou a caixa de diálogo!")
                 break
-                # fecharbox = self.wait.until(EC.element_to_be_clickable((By.ID, "cboxClose")))
-                # fecharbox.click()
             except Exception as error_x:
                 logger.error(f'Não fechou a caixa de diáogo: {error_x}')
             sleep(1)
             
     def ie_operations(self, inscEstadual) -> dict:
-        # print(f'SELF.FECHOU: {self.fechou}')
         self.navegador.execute_script("window.sessionStorage.clear();")
         if not self.fechou:
             self.fecharboxxx()
@@ -177,14 +172,12 @@ class BrowserSefaz:
                     dict_status['status_erro'] = 'NÃO AUTORIZADO'
                     self.fechou = False
                     self.navegador.back()
-                    # self.first_interaction = True
                     return dict_status
 
             sleep(1)
 
         if not ie:
             logger.error('SEM ACESSO')
-            # self.ie.update_status(ie=inscEstadual, status=1, status_erro='SEM ACESSO')
             dict_status['status'] = 1
             dict_status['status_erro'] = 'SEM ACESSO'
             return dict_status
@@ -204,12 +197,6 @@ class BrowserSefaz:
                 break
             except Exception as error_x:
                 logger.error(f'Não clicou em Recibo: TENTATIVA: {_ + 1}: ERROR_X: {error_x}')
-
-        # caixapostal = self.wait.until(EC.element_to_be_clickable((By.ID, "tab_8")))
-        # caixapostal.click()
-        # recibo = self.wait.until(EC.element_to_be_clickable((By.ID, "tab_cpe_5")))
-        # recibo.click()
-        # self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, "listaHeaderEcac")))
         
         painel_comunicados = False
         while not painel_comunicados:
