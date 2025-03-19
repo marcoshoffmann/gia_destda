@@ -5,7 +5,7 @@ load_dotenv()
 class PathManager:
     def __init__(self):
         self.path_clients = getenv("PATH_CLIENTS")
-        self.path_pdfs = f'{getcwd()}'//{getenv("PATH_PDFS")}'
+        self.path_pdfs = f'{getcwd()}\\{getenv("PATH_PDFS")}'
         self.path_downloads = getenv("PATH_DOWNLOADS")
 
     def path_exists(self) -> None:
