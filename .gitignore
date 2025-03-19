@@ -1,0 +1,6 @@
+# ARQUIVOS E DIRETÓRIOS PARA IGNORAR
+
+/Chrome
+*.env
+*__pycache__*
+*.log
