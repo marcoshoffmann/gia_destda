@@ -1,6 +1,7 @@
 # ARQUIVOS E DIRETÓRIOS PARA IGNORAR
 
-/Chrome
+/Chrome/*
+!/Chrome/.gitkeep
 *.env
 *__pycache__*
 *.log
