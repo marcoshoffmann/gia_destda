@@ -1,0 +1,5 @@
+Estrutura padrão para funcionamento da automação:
+{unidade C: ou outra}\\{diretório escolhido}\\{id empresa} - {nome empresa} - {cnpj empresa}\\{ano}\\{mes}.{ano}\\GIA_DESTDA" ou "C:\\EMPRESAS\\001 - NOME CLIENTE - 00000000000000\\2024\\12.2024\\GIA_DESTDA"
+{unidade C: ou outra}\\{diretório escolhido}\\{id empresa} - {nome empresa} - {cnpj empresa}\\{ano}\\{mes}.{ano}\\GIA_DESTDA" ou "C:\\EMPRESAS\\001 - NOME CLIENTE - 00000000000000\\2025\\01.2025\\GIA_DESTDA"
+{unidade C: ou outra}\\{diretório escolhido}\\{id empresa} - {nome empresa} - {cnpj empresa}\\{ano}\\{mes}.{ano}\\GIA_DESTDA" ou "C:\\EMPRESAS\\001 - NOME CLIENTE - 00000000000000\\2025\\02.2025\\GIA_DESTDA"
+O PATH_CLIENTES seria neste caso "{unidade C: ou outra}\\{diretório escolhido} ou "C:\\EMPRESAS"
