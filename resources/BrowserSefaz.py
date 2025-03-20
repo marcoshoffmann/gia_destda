@@ -1,76 +1,18 @@
 from loguru import logger
-from os import getenv, getcwd
+from os import getenv
 from dotenv import load_dotenv
 load_dotenv()
 from time import sleep
-from selenium.webdriver.common.by import By
-import undetected_chromedriver as uc
-from resources.TimeConsult import TimeConsult
-from random import uniform
-from selenium.webdriver.support.ui import WebDriverWait
+from resources.Browser import Browser
 from selenium.webdriver.support import expected_conditions as EC
-from pyautogui import keyDown
+from selenium.webdriver.common.by import By
 from re import sub
-from resources.PathManager import PathManager
 
-class BrowserSefaz:
-    def __init__(self):
-        self.pathmanager = PathManager()
-        self.url_sefaz = getenv("URL_SEFAZ")
-        self.path_downloads = self.pathmanager.path_pdfs.replace('\\\\', '\\')
-        chrome_options = uc.ChromeOptions()
-        chrome_options.add_argument("--start-fullscreen")
-        chrome_options.user_data_dir = rf'{getcwd()}\Chrome\data_sefaz'
-        chrome_options.add_argument(rf"--profile-directory=Default")
-        # chrome_options.add_argument("--window-size=1920X1080")
-        # chrome_options.add_argument("--headless")
-        chrome_options.add_experimental_option("prefs", {
-            "autofill.profile_enabled": False,
-            "profile.default_content_settings.popups": 0,
-            "download.default_directory": self.path_downloads,  # Caminho do diretório de download
-            "directory_upgrade": True,
-            "download.prompt_for_download": False,  # Desabilita o prompt de download
-            "download.directory_upgrade": True,
-            "safebrowsing.enabled": True,
-            "safebrowsing.mode": "strict",
-            "plugins.always_open_pdf_externally": True  # Faz o Chrome baixar PDFs automaticamente
-        })
-        chrome_options.add_argument(f"--load-extension=E:\\Dados\\Ti\\PROJETOS\\anti_captcha071")
-        self.timeconsult = TimeConsult()
-        self.navegador = uc.Chrome(headless=False, use_subprocess=False, options=chrome_options, suppress_welcome=True, driver_executable_path=f'{getenv("PATH_CHROME_DRIVER")}\\chromedriver.exe', browser_executable_path=f'{getenv("PATH_CHROME")}\\chrome.exe')
-        
-        self.wait = WebDriverWait(self.navegador, 40)
+class BrowserSefaz(Browser):
+    def __init__(self) -> None:
+        super().__init__(headless=False, extension=True)
         self.fechou = False
         self.first_interaction = True
-        self.navegador.get("chrome-extension://caokhkhhncahnamdelalpicnnelnjncn/popup_v3.html")
-        self.navegador.execute_script("""let teste0 = document.getElementsByClassName('toggler')[0];
-                                                            if (teste0.disabled){
-                                                                teste0.click();
-                                                            }""")
-        sleep(6)
-        self.navegador.execute_script("""let teste1 = document.getElementById("account_key");
-                                                            teste1.value = getenv("API_KEY");
-                                                            // Disparar eventos para que o site reconheça a mudança
-                                                            teste1.dispatchEvent(new Event('input', { bubbles: true }));
-                                                            teste1.dispatchEvent(new Event('change', { bubbles: true }));""")
-        sleep(5)
-        # input("CONFIGUROU ANTICAPTCHA AQUI!!!!!!!!")
-        self.navegador.execute_script("""let teste2 = document.getElementsByClassName('btn btn-primary')[0];
-                                                            teste2.dispatchEvent(new Event('input', { bubbles: true }));
-                                                            teste2.dispatchEvent(new Event('change', { bubbles: true }));
-                                                            teste2.click();""")
-        sleep(10)
-        
-        # input("AQUIIIIII!!!!!!!!!!!!!")
-        # input("AQUIIIIIIII!!!!!!!!!!!")
-
-    def keyboard(self, element, word: str, key_down: bool) -> None:
-        for caract in word:
-            sleep(uniform(0.5, 1.5))
-            element.send_keys(caract)
-            if key_down is True:
-                keyDown('right')
-                element.click()
 
     def enter_site(self):
         self.navegador.get(self.url_sefaz)
