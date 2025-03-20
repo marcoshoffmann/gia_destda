@@ -7,6 +7,8 @@ from use_cases.MySQLDB import MySQLDB
 from resources.TimeConsult import TimeConsult
 from shutil import copy, move
 from DB.queries import consulta_id
+import json
+from loguru import logger
 
 class FilesManager:
     def __init__(self):
@@ -70,3 +72,13 @@ class FilesManager:
                     print(f'Arquivo {file} removido com sucesso!')
             except Exception as error:
                 print(f'Não conseguiu remover o arquivo: {file} === ERRO: {error}')
+
+    def get_preferences(self) -> json.load:
+        preferences_path: str = rf"{self.pathmanager.path_data}\Default\Preferences"
+        if _path.exists(preferences_path):
+            try:
+                with open(preferences_path, "r", encoding="utf-8") as file:
+                    data: json.load = json.load(file)
+                    return data
+            except Exception as error_x:
+                logger.error(f'Erro ao ler o arquivo {preferences_path}: {error_x}')
